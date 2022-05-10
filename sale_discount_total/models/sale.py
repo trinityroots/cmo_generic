@@ -67,7 +67,8 @@ class SaleOrder(osv.Model):
                 val2 += self._amount_line_tax(line)
                 disc_amnt += (line.product_uom_qty * line.price_unit * line.discount)/100
             total = val1 + val2 - disc_amnt
-            self.currency_id = order.pricelist_id.currency_id
+            if order.pricelist_id.currency_id:
+                self.currency_id = order.pricelist_id.currency_id
             self.amount_discount = disc_amnt
             self.amount_tax = val2
             self.amount_total = total
